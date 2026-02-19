@@ -77,14 +77,10 @@
         // CONFIGURACIÓN (EDITAR SOLO EL NÚMERO)
         // ==========================================
         
-        // 1. Pon aquí el número de teléfono (con código de país, sin el +)
-        // Ejemplo República Dominicana: 18091234567
+        // 1. Pon aquí el número de teléfono
         const phoneNumber = "18098634826"; 
-
-        // 2. Mensaje predeterminado que aparecerá en WhatsApp
-        const message = "Hola 👋, tengo una idea innovadora que me gustaría compartir..."; 
         
-        // 3. Tiempo de espera en segundos
+        // 2. Tiempo de espera en segundos
         const secondsToRedirect = 3; 
 
         // ==========================================
@@ -94,6 +90,20 @@
             const progressBar = document.getElementById('progress');
             const statusText = document.getElementById('status-text');
             const link = document.getElementById('whatsappLink');
+            
+            // --- DETECTAR LA HORA PARA EL SALUDO ---
+            const hour = new Date().getHours();
+            let greeting = "Hola 👋";
+            if (hour >= 5 && hour < 12) {
+                greeting = "Buenos días ☀️";
+            } else if (hour >= 12 && hour < 19) {
+                greeting = "Buenas tardes 🌤️";
+            } else {
+                greeting = "Buenas noches 🌙";
+            }
+
+            // CREAR EL MENSAJE CON EL SALUDO CORRECTO
+            const message = `${greeting}, como empleado(a) del INFOTEP, tengo una idea...`;
             
             // Construir URL de WhatsApp
             const finalUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
